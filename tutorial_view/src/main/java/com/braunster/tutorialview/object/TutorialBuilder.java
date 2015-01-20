@@ -8,13 +8,13 @@ import com.braunster.tutorialview.view.AbstractTutorialView;
 /**
  * Created by braunster on 24/12/14.
  */
-public class TutorialBuilder  {
+public class TutorialBuilder {
 
     private String mTitle;
 
     /**
      * Holds the text that will be shown in the default info view
-     * */
+     */
     private String mInfoText;
 
     private float mPositionToSurroundX = -1, mPositionToSurroundY = -1;
@@ -22,57 +22,57 @@ public class TutorialBuilder  {
 
     /**
      * Holds the animation duration that will be used to animate the tutorial in and out.
-     *
+     * <p/>
      * Id does not assigned it will be ignored and {@link com.braunster.tutorialview.view.AbstractTutorialView#DEFAULT_ANIM_DURATION } will be used.
-     * */
-    protected long mAnimationDuration =-1;
+     */
+    protected long mAnimationDuration = -1;
 
     /**
      * Holds the animation type value that will be preformed on opening and closing the tutorial.
-     * */
+     */
     protected AbstractTutorialView.AnimationType mAnimationType = AbstractTutorialView.AnimationType.RANDOM;
 
     /**
      * The layout id that will be used to inflate the tutorial info view.
-     * */
+     */
     protected int mTutorialInfoLayoutId = -1;
 
     /**
      * Holds the color for the default info view text view.
-     * */
+     */
     protected int mTutorialTextColor = Color.WHITE;
 
     /**
      * Holds the name of the typeface that will be used for the default info view text view
-     * */
+     */
     protected String mTutorialTextTypeFaceName = null;
 
     /**
      * Holds the size of the default info view text view.
-     * */
+     */
     protected int mTutorialTextSize = -1;
 
     /**
      * Using transparent to indicate that the color was not initialized by the user.
-     * */
+     */
     private int mBackgroundColor = Color.TRANSPARENT;
 
 
     private View view;
-    
-    public TutorialBuilder(){
+
+    public TutorialBuilder() {
 
     }
 
-    public TutorialBuilder setViewToSurround(View view){
+    public TutorialBuilder setViewToSurround(View view) {
         this.view = view;
-        
+
         return this;
     }
 
     public TutorialBuilder setBackgroundColor(int mBackgroundColor) {
         this.mBackgroundColor = mBackgroundColor;
-        
+
         return this;
     }
 
@@ -117,7 +117,7 @@ public class TutorialBuilder  {
 
         return this;
     }
-    
+
     public TutorialBuilder setTutorialTextColor(int mTutorialTextColor) {
         this.mTutorialTextColor = mTutorialTextColor;
 
@@ -148,22 +148,21 @@ public class TutorialBuilder  {
         return this;
     }
 
-    public Tutorial build(){
+    public Tutorial build() {
         Tutorial tutorial = new Tutorial();
 
         if (view != null)
             tutorial.setViewToSurround(view);
-        else
-        {
+        else {
             if (mPositionToSurroundHeight == -1 || mPositionToSurroundWidth == -1 || mPositionToSurroundX == -1 || mPositionToSurroundY == -1)
                 throw new IllegalArgumentException("You need to init all view position and dimensions or just use the setViewToSurround");
-            
+
             tutorial.setPositionToSurroundY(mPositionToSurroundY);
             tutorial.setPositionToSurroundX(mPositionToSurroundX);
             tutorial.setPositionToSurroundHeight(mPositionToSurroundHeight);
             tutorial.setPositionToSurroundWidth(mPositionToSurroundWidth);
         }
-        
+
         tutorial.setTitle(mTitle);
         tutorial.setTutorialText(mInfoText);
         tutorial.setTutorialBackgroundColor(mBackgroundColor);
@@ -173,7 +172,7 @@ public class TutorialBuilder  {
         tutorial.setAnimationDuration(mAnimationDuration);
         tutorial.setAnimationType(mAnimationType);
         tutorial.setTutorialTextTypeFace(mTutorialTextTypeFaceName);
-        
+
         return tutorial;
     }
 }

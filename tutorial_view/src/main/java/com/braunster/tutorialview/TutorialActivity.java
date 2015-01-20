@@ -25,8 +25,7 @@ public class TutorialActivity extends Activity {
 
         mTutorialLayout = (TutorialLayout) findViewById(R.id.tutorial_layout);
 
-        if (getIntent().getExtras() == null)
-        {
+        if (getIntent().getExtras() == null) {
             throw new NullPointerException("You must provide extras to the activity to set up the tutorial view.");
         }
 
@@ -42,7 +41,7 @@ public class TutorialActivity extends Activity {
     /**
      * Need to wait until the window get focused before doing the animation.
      * Also it is good to post it.
-     * */
+     */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -57,8 +56,7 @@ public class TutorialActivity extends Activity {
                         TutorialIntentBuilder.showTutorial(mTutorialLayout, getIntent());
 
                         // If the tutorial is a walk through we would need to set a WalkThroughListener.
-                        if (mTutorialLayout.isWalkThrough())
-                        {
+                        if (mTutorialLayout.isWalkThrough()) {
                             mTutorialLayout.setWalkThroughListener(new TutorialLayout.WalkThroughListener() {
                                 @Override
                                 public void onNextTutorialShown() {
@@ -86,20 +84,17 @@ public class TutorialActivity extends Activity {
      * Back press will close the tutorial which will trigger the
      * {@link com.braunster.tutorialview.view.TutorialView.TutorialClosedListener#onClosed() onClosed()} method
      * which will finish the activity.
-     *
+     * <p/>
      * If the tutorial is in walk through mode then the current tutorial will closed and the next one will be shown,
      * Unless the activity was set to skip when back pressed.
      *
      * @see com.braunster.tutorialview.object.TutorialIntentBuilder#skipOnBackPressed(android.content.Intent)
-     *
-     * */
+     */
     @Override
     public void onBackPressed() {
-        if (TutorialIntentBuilder.skipOnBackPressed(getIntent()))
-        {
+        if (TutorialIntentBuilder.skipOnBackPressed(getIntent())) {
             mTutorialLayout.skip();
-        }
-        else mTutorialLayout.closeTutorial();
+        } else mTutorialLayout.closeTutorial();
     }
 
 }

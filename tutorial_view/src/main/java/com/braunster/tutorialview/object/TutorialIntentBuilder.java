@@ -30,38 +30,35 @@ public class TutorialIntentBuilder {
 
     private Intent intent;
 
-    public TutorialIntentBuilder(Context context){
-        intent = new Intent(context, TutorialActivity.class );
+    public TutorialIntentBuilder(Context context) {
+        intent = new Intent(context, TutorialActivity.class);
     }
 
-    public TutorialIntentBuilder setTutorial(Tutorial tutorial){
+    public TutorialIntentBuilder setTutorial(Tutorial tutorial) {
         intent.putExtra(TUTORIAL_OBJ, tutorial);
         return this;
     }
 
-    public TutorialIntentBuilder(Intent intent){
+    public TutorialIntentBuilder(Intent intent) {
         this.intent = intent;
     }
 
 
-
-    public TutorialIntentBuilder hasStatusBar(boolean hasStatusBar){
+    public TutorialIntentBuilder hasStatusBar(boolean hasStatusBar) {
         intent.putExtra(HAS_STATUS_BAR, hasStatusBar);
         return this;
     }
 
-    public TutorialIntentBuilder setWalkThroughList(ArrayList<Tutorial> tutorials){
-        if (tutorials != null && tutorials.size() > 0)
-        {
+    public TutorialIntentBuilder setWalkThroughList(ArrayList<Tutorial> tutorials) {
+        if (tutorials != null && tutorials.size() > 0) {
             intent.putParcelableArrayListExtra(WALK_THROUGH_DATA, tutorials);
         }
 
         return this;
     }
 
-    public TutorialIntentBuilder setWalkThroughList(Tutorial... tutorials){
-        if (tutorials != null && tutorials.length > 0)
-        {
+    public TutorialIntentBuilder setWalkThroughList(Tutorial... tutorials) {
+        if (tutorials != null && tutorials.length > 0) {
             intent.putParcelableArrayListExtra(WALK_THROUGH_DATA, new ArrayList<Parcelable>(Arrays.asList(tutorials)));
         }
 
@@ -70,48 +67,44 @@ public class TutorialIntentBuilder {
 
     /**
      * @param skip if true the {@link com.braunster.tutorialview.TutorialActivity TutorialActivity} will skip the tutorial
-     * on back pressed.
-     *
+     *             on back pressed.
      * @see com.braunster.tutorialview.view.TutorialLayout#skip()
-     * */
-    public TutorialIntentBuilder skipTutorialOnBackPressed(boolean skip){
+     */
+    public TutorialIntentBuilder skipTutorialOnBackPressed(boolean skip) {
         intent.putExtra(SKIP_TUTORIAL_ON_BACK_PRESSED, skip);
         return this;
     }
 
     /**
-     *  @return the intent that was build and populated with all attributes.
-     * */
-    public Intent getIntent(){
+     * @return the intent that was build and populated with all attributes.
+     */
+    public Intent getIntent() {
         return intent;
     }
 
     /**
      * @return true if should skip the walk through when user press on the back button.
-     * */
-    public static boolean skipOnBackPressed(Intent intent){
+     */
+    public static boolean skipOnBackPressed(Intent intent) {
         return intent.getBooleanExtra(SKIP_TUTORIAL_ON_BACK_PRESSED, false);
     }
 
     /**
-     *  Used in the tutorial activity to show the tutorial,
-     *
-     *  The data from the intent would be recovered and would be set on the TutorialInterface.
-     *
-     * */
-    public static void showTutorial(TutorialViewInterface tutorial, Intent intent){
+     * Used in the tutorial activity to show the tutorial,
+     * <p/>
+     * The data from the intent would be recovered and would be set on the TutorialInterface.
+     */
+    public static void showTutorial(TutorialViewInterface tutorial, Intent intent) {
 
         // Showing the first tutorial in the list.
-        if (tutorial instanceof WalkThroughInterface)
-        {
+        if (tutorial instanceof WalkThroughInterface) {
             if (DEBUG) Log.d(TAG, "WalkThroughInterface");
 
-            if (intent.getExtras().containsKey(WALK_THROUGH_DATA))
-            {
+            if (intent.getExtras().containsKey(WALK_THROUGH_DATA)) {
                 ((WalkThroughInterface) tutorial).startWalkThrough();
                 return;
-            }
-            else if (DEBUG) Log.d(TAG, "ShowTutorial, WalkThrough DoesNot have walk through data.");
+            } else if (DEBUG)
+                Log.d(TAG, "ShowTutorial, WalkThrough DoesNot have walk through data.");
         }
 
         /**
@@ -119,28 +112,26 @@ public class TutorialIntentBuilder {
          *
          * Else we would have to use the setPositionToSurround.
          * */
-        if (intent.getExtras().containsKey(TUTORIAL_OBJ))
-        {
+        if (intent.getExtras().containsKey(TUTORIAL_OBJ)) {
             tutorial.show();
-        }
-        else throw new IllegalArgumentException("You must pass at least on Tutorial object to the intent builder.");
+        } else
+            throw new IllegalArgumentException("You must pass at least on Tutorial object to the intent builder.");
 
     }
 
     /**
      * Setup tutorial from data saved in the intent.
-     * */
-    public static void updateTutorialViewFromIntent(final TutorialViewInterface tutorial, Intent intent){
+     */
+    public static void updateTutorialViewFromIntent(final TutorialViewInterface tutorial, Intent intent) {
         tutorial.setHasStatusBar(intent.getBooleanExtra(HAS_STATUS_BAR, true));
 
         /**
          * Update the tutorial with data from the intent.
          * */
-        if (intent.getExtras().containsKey(TUTORIAL_OBJ))
-        {
+        if (intent.getExtras().containsKey(TUTORIAL_OBJ)) {
             tutorial.setTutorial((Tutorial) intent.getParcelableExtra(TUTORIAL_OBJ), false);
-        }
-        else throw new IllegalArgumentException("You must pass at least on Tutorial object to the intent builder.");
+        } else
+            throw new IllegalArgumentException("You must pass at least on Tutorial object to the intent builder.");
     }
 
 }

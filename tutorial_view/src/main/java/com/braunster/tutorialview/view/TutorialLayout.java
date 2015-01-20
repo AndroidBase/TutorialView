@@ -40,7 +40,7 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
         init();
     }
 
-    private void init(){
+    private void init() {
         mTutorialView = new RippleTutorialView(getContext());
 
         addView(mTutorialView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -105,7 +105,7 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
      * Set the listener on the tutorial view, If walk through is used this will be overriden and you should set a {@link com.braunster.tutorialview.view.TutorialLayout.WalkThroughListener WalkThroughListener} instead.
      *
      * @see #setWalkThroughListener(com.braunster.tutorialview.view.TutorialLayout.WalkThroughListener)
-     * */
+     */
     @Override
     public void setTutorialClosedListener(AbstractTutorialView.TutorialClosedListener tutorialClosedListener) {
         if (isWalkThrough())
@@ -209,7 +209,7 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
         return mTutorialView.isShowing();
     }
 
-    public void closeTutorial(){
+    public void closeTutorial() {
         mTutorialView.closeTutorial();
     }
 
@@ -244,8 +244,7 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
     public void setWalkThroughData(final ArrayList<Tutorial> tutorials) {
         if (DEBUG) Log.v(TAG, "setWalkThroughData");
 
-        if (tutorials == null || tutorials.size() == 0)
-        {
+        if (tutorials == null || tutorials.size() == 0) {
             if (DEBUG) Log.d(TAG, "Setting empty tutorial walk through list.");
             return;
         }
@@ -269,7 +268,7 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
     }
 
     @Override
-    public boolean isWalkThrough(){
+    public boolean isWalkThrough() {
         return tutorialList != null && tutorialList.size() > 0;
     }
 
@@ -287,36 +286,26 @@ public /**/class TutorialLayout extends RelativeLayout implements TutorialViewIn
     public void startWalkThrough() {
         if (DEBUG) Log.v(TAG, "startWalkThrough");
 
-        if (isWalkThrough())
-        {
+        if (isWalkThrough()) {
             nextTutorial(tutorialIterator.next());
         }
     }
 
 
-
-
-
-
-
-
-
-
-    private void dispatchWalkThroughSkipped(){
+    private void dispatchWalkThroughSkipped() {
         if (walkThroughListener != null)
             walkThroughListener.onWalkTroughSkipped();
     }
 
-    private void dispatchNextTutorialShown(){
+    private void dispatchNextTutorialShown() {
         if (walkThroughListener != null)
             walkThroughListener.onNextTutorialShown();
     }
 
-    private void dispatchWalkThroughDone(){
+    private void dispatchWalkThroughDone() {
         if (walkThroughListener != null)
             walkThroughListener.onWalkThroughDone();
     }
-
 
 
     public interface WalkThroughListener {

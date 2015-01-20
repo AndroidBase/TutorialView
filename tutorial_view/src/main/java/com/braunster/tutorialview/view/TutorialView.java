@@ -21,12 +21,12 @@ public class TutorialView extends AbstractTutorialView {
 
     /**
      * Left and Right path's used to create the arcs around the view that need to be surrounded.
-     * */
+     */
     private Path mLeftArcPath = new Path(), mRightArcPath = new Path();
 
     /**
      * The height of the tutorial view before the expand animation start. Used to handle animation issues.
-     * */
+     */
     private int mBeforeAnimationHeight = -1;
 
 
@@ -53,8 +53,7 @@ public class TutorialView extends AbstractTutorialView {
         mRightArcPath.reset();
 
         // This check for former height is needed so we wont draw anything until the view size is changed and ready for the animation.
-        if (shouldDraw())
-        {
+        if (shouldDraw()) {
             // The size of the view before the animation
             mBeforeAnimationHeight = -1;
 
@@ -67,7 +66,7 @@ public class TutorialView extends AbstractTutorialView {
     }
 
     @Override
-    public  void beforeFirstDraw(){
+    public void beforeFirstDraw() {
         if (DEBUG) Log.d(TAG, "FirstDraw");
 
         mBeforeAnimationHeight = ((View) getParent()).getMeasuredHeight();
@@ -83,7 +82,7 @@ public class TutorialView extends AbstractTutorialView {
     }
 
     @Override
-    public void closeTutorial(){
+    public void closeTutorial() {
         if (DEBUG) Log.d(TAG, "onClick");
 
         if (closing || !showing)
@@ -105,25 +104,22 @@ public class TutorialView extends AbstractTutorialView {
 
     /**
      * Drawing the blocks around the view.
-     * */
-    private void drawSurroundingBlocks(Canvas canvas){
+     */
+    private void drawSurroundingBlocks(Canvas canvas) {
         // If view is not in the top.
-        if (mViewToSurroundCenterY > mViewToSurroundRadius - statusBarHeight - actionBarHeight)
-        {
+        if (mViewToSurroundCenterY > mViewToSurroundRadius - statusBarHeight - actionBarHeight) {
 //            if (DEBUG) Log.i(TAG, "View not on the top");
             canvas.drawRect(0, 0, getMeasuredWidth(), mViewToSurroundCenterY - mViewToSurroundRadius - statusBarHeight - actionBarHeight, mBackgroundPaint);
         }
 
         // If not on bottom
-        if (mViewToSurroundCenterY + mViewToSurroundRadius - statusBarHeight - actionBarHeight < getMeasuredHeight())
-        {
+        if (mViewToSurroundCenterY + mViewToSurroundRadius - statusBarHeight - actionBarHeight < getMeasuredHeight()) {
 //            if (DEBUG) Log.i(TAG, "View not on the bottom");
             canvas.drawRect(0, mViewToSurroundCenterY + mViewToSurroundRadius - statusBarHeight - actionBarHeight, getMeasuredWidth(), getMeasuredHeight(), mBackgroundPaint);
         }
 
         //if not on the left
-        if (mViewToSurroundCenterX > mViewToSurroundRadius)
-        {
+        if (mViewToSurroundCenterX > mViewToSurroundRadius) {
 //            if (DEBUG) Log.i(TAG, "View not on the left");
             canvas.drawRect(0,
                     mViewToSurroundCenterY - mViewToSurroundRadius - statusBarHeight - actionBarHeight,
@@ -133,8 +129,7 @@ public class TutorialView extends AbstractTutorialView {
         }
 
         //if not on the right
-        if (mViewToSurroundCenterX + mViewToSurroundRadius < getMeasuredWidth())
-        {
+        if (mViewToSurroundCenterX + mViewToSurroundRadius < getMeasuredWidth()) {
 //            if (DEBUG) Log.i(TAG, "View not on the right");
             canvas.drawRect(mViewToSurroundCenterX + mViewToSurroundRadius,
                     mViewToSurroundCenterY - mViewToSurroundRadius - statusBarHeight - actionBarHeight,
@@ -146,8 +141,8 @@ public class TutorialView extends AbstractTutorialView {
 
     /**
      * Drawing the circle around the view.
-     * */
-    private void drawSurroundingCircle(Canvas canvas){
+     */
+    private void drawSurroundingCircle(Canvas canvas) {
 
         mBackgroundPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mBackgroundPaint.setStrokeWidth(1f);
@@ -205,13 +200,11 @@ public class TutorialView extends AbstractTutorialView {
 
         prepareForAnimation();
 
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
 
-                switch (mTutorial.getAnimationType())
-                {
+                switch (mTutorial.getAnimationType()) {
                     case FROM_BOTTOM:
                     case FROM_TOP:
                         getLayoutParams().height = (int) (initialHeight * interpolatedTime);
@@ -248,7 +241,7 @@ public class TutorialView extends AbstractTutorialView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (onEnd!= null)
+                if (onEnd != null)
                     onEnd.run();
             }
 
@@ -270,13 +263,11 @@ public class TutorialView extends AbstractTutorialView {
         final int initialHeight = ((View) getParent()).getMeasuredHeight();
         final int initialWidth = ((View) getParent()).getMeasuredWidth();
 
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
 
-                switch (mTutorial.getAnimationType())
-                {
+                switch (mTutorial.getAnimationType()) {
                     case FROM_BOTTOM:
                     case FROM_TOP:
                         getLayoutParams().height = (int) (initialHeight - (initialHeight * interpolatedTime));
@@ -284,14 +275,14 @@ public class TutorialView extends AbstractTutorialView {
 
                     case FROM_RIGHT:
                     case FROM_LEFT:
-                        getLayoutParams().width = (int) (initialWidth- (initialWidth * interpolatedTime));
+                        getLayoutParams().width = (int) (initialWidth - (initialWidth * interpolatedTime));
                         break;
 
                     case FROM_TOP_RIGHT:
                     case FROM_TOP_LEFT:
                     case FROM_BOTTOM_LEFT:
                     case FROM_BOTTOM_RIGHT:
-                        getLayoutParams().width = (int) (initialWidth- (initialWidth * interpolatedTime));
+                        getLayoutParams().width = (int) (initialWidth - (initialWidth * interpolatedTime));
                         getLayoutParams().height = (int) (initialHeight - (initialHeight * interpolatedTime));
                         break;
                 }
@@ -313,7 +304,7 @@ public class TutorialView extends AbstractTutorialView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (onEnd!= null)
+                if (onEnd != null)
                     onEnd.run();
             }
 
@@ -330,22 +321,20 @@ public class TutorialView extends AbstractTutorialView {
     @Override
     protected boolean shouldDraw() {
         return super.shouldDraw() && showing &&
-                ( mBeforeAnimationHeight != getMeasuredHeight() ||
-                        (mTutorial.getAnimationType() == AnimationType.FROM_LEFT || mTutorial.getAnimationType() == AnimationType.FROM_RIGHT) );
+                (mBeforeAnimationHeight != getMeasuredHeight() ||
+                        (mTutorial.getAnimationType() == AnimationType.FROM_LEFT || mTutorial.getAnimationType() == AnimationType.FROM_RIGHT));
     }
 
     /**
-     *  Removing old rules that was applied to the tutorial view.
-     * */
-    private void removeAllRules(LayoutParams params){
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
+     * Removing old rules that was applied to the tutorial view.
+     */
+    private void removeAllRules(LayoutParams params) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
             params.removeRule(ALIGN_PARENT_BOTTOM);
             params.removeRule(ALIGN_PARENT_TOP);
             params.removeRule(ALIGN_PARENT_LEFT);
             params.removeRule(ALIGN_PARENT_RIGHT);
-        }
-        else
-        {
+        } else {
             params.addRule(ALIGN_PARENT_BOTTOM, 0);
             params.addRule(ALIGN_PARENT_TOP, 0);
             params.addRule(ALIGN_PARENT_LEFT, 0);
@@ -353,12 +342,11 @@ public class TutorialView extends AbstractTutorialView {
         }
     }
 
-    private void prepareForAnimation(){
+    private void prepareForAnimation() {
         if (mTutorial.getAnimationType() == AnimationType.RANDOM)
             mTutorial.setAnimationType(AnimationType.getRandom());
 
-        switch (mTutorial.getAnimationType())
-        {
+        switch (mTutorial.getAnimationType()) {
             case RANDOM:
                 if (DEBUG) Log.i(TAG, "Animating random");
                 break;

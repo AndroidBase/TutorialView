@@ -45,8 +45,7 @@ public class RippleTutorialView extends AbstractTutorialView {
             return;
 
         // This check for former height is needed so we wont draw anything until the view size is changed and ready for the animation.
-        if (shouldDraw())
-        {
+        if (shouldDraw()) {
             canvas.drawCircle(mViewToSurroundCenterX,
                     mViewToSurroundCenterY - statusBarHeight - actionBarHeight,
                     mAnimatedRadius, // Radius
@@ -77,17 +76,18 @@ public class RippleTutorialView extends AbstractTutorialView {
     }
 
     @Override
-    public  void beforeFirstDraw(){
-        if (DEBUG) Log.d(TAG, "FirstDraw, Width: " + getMeasuredWidth() + ", Height: " + getMeasuredHeight());
+    public void beforeFirstDraw() {
+        if (DEBUG)
+            Log.d(TAG, "FirstDraw, Width: " + getMeasuredWidth() + ", Height: " + getMeasuredHeight());
 
         // Getting the longest distance from the screen size so that will be the max of the radius.
         int maxHeight, maxWidth;
-        if (mViewToSurroundCenterY > getMeasuredHeight()/2)
+        if (mViewToSurroundCenterY > getMeasuredHeight() / 2)
             maxHeight = mViewToSurroundCenterY;
         else
             maxHeight = getMeasuredHeight() - mViewToSurroundCenterY;
 
-        if (mViewToSurroundCenterX > getMeasuredWidth()/2)
+        if (mViewToSurroundCenterX > getMeasuredWidth() / 2)
             maxWidth = mViewToSurroundCenterX;
         else
             maxWidth = getMeasuredWidth() - mViewToSurroundCenterX;
@@ -111,7 +111,7 @@ public class RippleTutorialView extends AbstractTutorialView {
     }
 
     @Override
-    public void closeTutorial(){
+    public void closeTutorial() {
         if (DEBUG) Log.d(TAG, "onClick");
 
         if (closing || !showing)
@@ -132,8 +132,7 @@ public class RippleTutorialView extends AbstractTutorialView {
     public Animation show(final Runnable onEnd) {
         if (DEBUG) Log.v(TAG, "expand");
 
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
 
@@ -156,7 +155,7 @@ public class RippleTutorialView extends AbstractTutorialView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (onEnd!= null)
+                if (onEnd != null)
                     onEnd.run();
             }
 
@@ -175,8 +174,7 @@ public class RippleTutorialView extends AbstractTutorialView {
     @Override
     public Animation hide(final Runnable onEnd) {
 
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 mAnimatedRadius = (int) (mAnimationRadiusMax - (mAnimationRadiusMax * interpolatedTime));
@@ -198,7 +196,7 @@ public class RippleTutorialView extends AbstractTutorialView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (onEnd!= null)
+                if (onEnd != null)
                     onEnd.run();
             }
 

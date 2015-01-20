@@ -30,13 +30,13 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         tutorialView = (TutorialView) findViewById(R.id.tutorial_view);
-
+         //设置监听
         findViewById(R.id.btn_test_button).setOnClickListener(tutorialClickListener);
         findViewById(R.id.btn_test_button2).setOnClickListener(tutorialClickListener);
         findViewById(R.id.view_to_surround).setOnClickListener(tutorialClickListener);
         findViewById(R.id.view_to_surround2).setOnClickListener(tutorialClickListener);
         findViewById(R.id.linear_test).setOnClickListener(tutorialClickListener);
-
+        /*设置ActionBar背景色*/
         if (getActionBar() != null)
             getActionBar().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
 
@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
         tutorialView.changeActionBarColor(true);
         tutorialView.setActionBar(getActionBar());
         tutorialView.setHasActionBar(true);
+        //设置字体
         tutorialView.setTutorialTextTypeFace("fonts/roboto_light.ttf");
         tutorialView.setHasStatusBar(true);
         tutorialView.setTutorialText("This is some general text that is not that long but also not so short.");
@@ -115,11 +116,17 @@ public class MainActivity extends Activity {
         }
     };
 
+    /**
+     * @return 随机产生一个颜色值
+     */
     private int randomColor(){
         Random rnd = new Random();
         return  Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
+    /**
+     * 处理返回键
+     */
     @Override
     public void onBackPressed() {
         if (tutorialView.isShowing())

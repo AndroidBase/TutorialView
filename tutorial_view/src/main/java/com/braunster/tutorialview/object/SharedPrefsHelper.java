@@ -5,33 +5,29 @@ import android.content.SharedPreferences;
 
 /**
  * Created by braunster on 30/12/14.
- *
+ * <p/>
  * Simple helper class for handling checks if the user has already seen the tutorial.
- *
  */
 public abstract class SharedPrefsHelper {
 
     protected Context mContext;
 
-    protected boolean isFirstTime(String identifier, String key){
-        if (validate())
-        {
+    protected boolean isFirstTime(String identifier, String key) {
+        if (validate()) {
             SharedPreferences preferences = getSharedPrefsForIdentifier(identifier);
 
             boolean saw = preferences.contains(key);
 
-            if (!saw)
-            {
+            if (!saw) {
                 preferences.edit().putBoolean(key, false).apply();
             }
 
             return !saw;
-        }
-        else
+        } else
             return false;
     }
 
-    protected SharedPreferences getSharedPrefsForIdentifier(String identifier){
+    protected SharedPreferences getSharedPrefsForIdentifier(String identifier) {
         return mContext.getSharedPreferences(identifier, Context.MODE_PRIVATE);
     }
 

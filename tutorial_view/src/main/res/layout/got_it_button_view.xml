@@ -7,4 +7,4 @@
     android:id="@+id/got_it_button_view"
     android:fontFamily="sans-serif-condensed"
     android:textColor="@android:color/white"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content" />

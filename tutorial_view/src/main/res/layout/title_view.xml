@@ -7,4 +7,4 @@
     android:id="@+id/title_view"
     android:fontFamily="sans-serif-light"
     android:textColor="@android:color/white"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content" />
